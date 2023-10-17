@@ -1,4 +1,4 @@
-# HTTP Client
+# HTTP Client & Server
 
 **TCP/IP 를 기반으로 HTTP 가 올라간다.**  
 최근에는 HTTP/3 에서 UDP 를 이용한 QUIC 프로토콜을 사용하기도 하지만, 기본적으로 HTTP/2 에서는 SPDY 프로토콜을 기반으로 한다.
@@ -23,7 +23,7 @@ Socket 은 기본적으로 파일과 유사하게 다룰 수 있고, Java 에서
 4. Send & Receive : 소켓을 통해 데이터를 주고 받는다. (반복)
 5. Close : 통신 완료 후 소켓을 닫는다. (Client 는 Receive 로 인지)
 
-## Client 관점에서의 흐름 알아보기
+### Client 관점에서의 흐름 알아보기
 제일 먼저, Host 를 알아야 한다.  
 Host 는 IP 혹은 [domain 이름](#domain-이름)으로 사용이 가능하다.  
 
@@ -101,6 +101,69 @@ try (Socket socket = new Socket("example.com", 80)) {
     // ...Request~Response
 } catch {}
 ```
+
+### Server 관점에서의 흐름 알아보기
+내 서버를 띄우는 것이기 때문에 port 만 정하면 된다.  
+```java
+ServerSocket listener = new ServerSocket({port});
+```
+
+여기까지 하면, 이제 `Listen` 할 준비가 완료된 것이고, Client 요청만 오면 된다.  
+Client에서 접속하게 되면 통신용 소켓을 따로 만들어서 돌려준다.  
+```java
+Socket socket = listener.accept();
+```
+
+요청이 들어오기 까지 **기다리고 있다가**, 요청이 오면 위 라인으로 받는다 !
+
+> I/O 에서 이렇게 기다리고 있는 것을 `Blocking`이라고 한다.  
+> 모든 I/O 에서 Blocking 동작이 있지만, `accept` 처럼 요청이 없는 경우에는 영원이 기다릴 수 있다.  
+> 그렇기에 멀티스레드, 비동기, 이벤트기반처리 따위 가 필요한 이유이다.  
+
+요청을 받았으면 이제 Request 를 처리해야 하는데, Read 한 뒤에 처리하면 된다.  
+Client 에서 Read 하는 것과 완전히 동일하기에 생략한다.
+
+이제는 응답할 차례 인데, 클라이언트와 동일하게 응답 메시지를 만들어서 전송하면 된다.    
+(마지막 줄에 New Line을 잊으면 안돼요!)
+```java
+String message = """
+HTTP/1.1 200 OK
+
+Hello, world!
+""";
+
+Writer writer = new OutputStreamWriter(socket.getOutputStream());
+writer.write(message);
+writer.flush();
+
+socket.close();
+listener.close();
+```
+
+이렇게 되면, 응답까지 내려가게 되나, 한번의 요청으로 서버가 끝나게 된다.  
+이를 위해서는 Accept 를 계속해주면 된다.  
+```java
+while (true) {
+    Socket socket = listener.accept();
+    
+    // ..중략
+
+    socket.close();
+}
+```
+
+여기까지 Simple 하게 할 수 있는 영역이고, message 에 조금 더 있써빌러티를 넣어주자.  
+```java
+String responseBody = "Hello, world";
+byte[] bytes = responseBody.getBytes();
+String message = "" +
+    "HTTP/1.1 200 OK\n" +
+    "Content-Type: text/html; charset=UTF-8\n" + 
+    "Content-Length: " + bytes.length + "\n" +
+    "\n" + body;
+```
+
+> Content-Length 로 정확한 크기를 알 수 있기 때문에, body 이후에 New Line을 넣어주지 않아도 된다.
 
 ---
 ###### domain 이름
