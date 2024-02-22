@@ -11,5 +11,5 @@
     - [Java HTTP Server](./weeks/1weeks/JAVA_HTTP_SERVER.md)
     - [Spring Web MVC](./weeks/1weeks/SPRING_WEB_MVC.md)
   - 2주차
-    - [RESTful](./weeks/2weeks/RESTFUL.md)
+    - [RESTful](./weeks/2weeks/README.md)
       - [Richardson Maturity Model](./weeks/2weeks/Richardson.md)
