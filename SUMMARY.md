@@ -13,3 +13,4 @@
   - 2주차
     - [RESTful](./weeks/2weeks/README.md)
     - [Richardson Maturity Model](./weeks/2weeks/Richardson.md)
+    - [URI & MIME Type](./weeks/2weeks/URI.md)

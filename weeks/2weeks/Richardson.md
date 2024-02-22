@@ -1,6 +1,6 @@
 # Richardson Maturity Model (리차드슨 성숙도 모델)
 
-![img.png](../../public/RMM.png)
+![리차드슨 성숙도 모델](../../public/RMM.png)
 
 RestAPI 에 이르는 단계를 정의해둔 것이다.
 
