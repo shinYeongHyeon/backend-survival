@@ -39,6 +39,3 @@ Application Programming Interface 의 약어로, 어떻게 작동하는지를 �
 ### 표현 (Presentation)
 Data + Metadata ...
 사실상 HTTP 메시지라고 보면 된다. 가령, 리소스를 어떻게 조작할 것을 HTTP Method 로 표현하고, 무엇을 조작할지 Content-Type 과 Body로 표현
-
-## Appendix
-- [Richardson Maturity Model](./Richardson.md)

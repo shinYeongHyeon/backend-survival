@@ -12,4 +12,4 @@
     - [Spring Web MVC](./weeks/1weeks/SPRING_WEB_MVC.md)
   - 2주차
     - [RESTful](./weeks/2weeks/README.md)
-      - [Richardson Maturity Model](./weeks/2weeks/Richardson.md)
+    - [Richardson Maturity Model](./weeks/2weeks/Richardson.md)
