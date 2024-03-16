@@ -15,3 +15,4 @@
     - [Richardson Maturity Model](./weeks/2weeks/Richardson.md)
     - [URI & MIME Type](./weeks/2weeks/URI.md)
     - [Collection Pattern](./weeks/2weeks/CollectionPattern.md)
+    - [CRUD](./weeks/2weeks/CRUD.md)
