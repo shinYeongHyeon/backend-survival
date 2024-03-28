@@ -16,3 +16,5 @@
     - [URI & MIME Type](./weeks/2weeks/URI.md)
     - [Collection Pattern](./weeks/2weeks/CollectionPattern.md)
     - [CRUD](./weeks/2weeks/CRUD.md)
+  - 3주차
+    - [DTO](./weeks/3weeks/README.md)
